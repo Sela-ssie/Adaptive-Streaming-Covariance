@@ -37,7 +37,7 @@ def sample_covariance(X: ArrayLike) -> NDArray[np.float64]:
             "(n_observations, n_features)."
         )
 
-    n_observations, _ = observations.shape
+    n_observations, n_variables = observations.shape
 
     if n_observations < 2:
         raise ValueError(
@@ -45,6 +45,9 @@ def sample_covariance(X: ArrayLike) -> NDArray[np.float64]:
             "an unbiased sample covariance."
         )
 
+    if n_variables == 0:
+        raise ValueError("X must have at least one variable (column).")
+    
     mean = observations.mean(axis=0)
     centered = observations - mean
 
